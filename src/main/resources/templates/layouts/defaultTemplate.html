@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - GCU">Default Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; }
+        header { background-color: #522398; color: white; padding: 20px; text-align: center; }
+        nav { background-color: #f0f0f0; padding: 10px; text-align: center; }
+        nav a { margin: 0 10px; text-decoration: none; color: #522398; }
+        main { padding: 20px; }
+        .logo { max-height: 60px; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to my CST-339 Spring Boot Activity Application</h1>
+</header>
+<nav>
+    <a href="/">GCU</a>
+    <a href="/">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">News and Events</a>
+</nav>
+<main>
+    <div layout:fragment="content">
+        <!-- Page content will be inserted here -->
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultTemplate}">
+
+<head>
+    <title>My Home</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+    <!-- Centered Content -->
+    <div style="text-align: center; margin-top: 30px;">
+        <h2>Welcome Message</h2>
+        <p>Welcome to our application!</p>
+
+        <!-- Styled Login Button -->
+        <div style="margin-top: 30px;">
+            <a th:href="@{/login}" style="
+                background-color: #522398;
+                color: white;
+                padding: 12px 24px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+            ">Login</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
