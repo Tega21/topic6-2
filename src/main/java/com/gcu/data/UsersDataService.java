@@ -2,11 +2,13 @@ package com.gcu.data;
 
 import com.gcu.data.entity.UserEntity;
 import com.gcu.data.repository.UsersRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Qualifier("usersDataService")
 public class UsersDataService implements UsersDataAccessInterface<UserEntity>, DataAccessInterface<UserEntity> {
 
     private final UsersRepository usersRepository;
@@ -22,9 +24,28 @@ public class UsersDataService implements UsersDataAccessInterface<UserEntity>, D
 
     // The guide only requires findByUsername() for now.
     // Stub the rest to keep the compiler happy.
-    @Override public List<UserEntity> findAll() { return List.of(); }
-    @Override public UserEntity findById(int id) { return null; }
-    @Override public boolean create(UserEntity t) { return false; }
-    @Override public boolean update(UserEntity t) { return false; }
-    @Override public boolean delete(UserEntity t) { return false; }
+    @Override
+    public List<UserEntity> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public UserEntity findById(String id) {  // Changed from int to String
+        return null;
+    }
+
+    @Override
+    public boolean create(UserEntity t) {
+        return false;
+    }
+
+    @Override
+    public boolean update(UserEntity t) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(UserEntity t) {
+        return false;
+    }
 }

@@ -1,19 +1,21 @@
 package com.gcu.topic61.business;
 
 import com.gcu.data.DataAccessInterface;
+import com.gcu.data.entity.OrderEntity;
 import com.gcu.model.OrderModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Business Service updated to use MongoDB
- * Now uses DataAccessInterface and delegates to the data layer
- */
+@Service  // Add this annotation
 public class OrdersBusinessService implements OrdersBusinessServiceInterface {
 
     @Autowired
-    private DataAccessInterface<OrderModel> dataService;
+    @Qualifier("orderDataService")
+    private DataAccessInterface<OrderEntity> dataService;  // Change to OrderEntity
 
     @Override
     public void test() {
@@ -22,10 +24,24 @@ public class OrdersBusinessService implements OrdersBusinessServiceInterface {
 
     /**
      * Get orders from database through the data service
+     * Convert from OrderEntity to OrderModel
      */
     @Override
     public List<OrderModel> getOrders() {
-        return dataService.findAll();
+        List<OrderEntity> entities = dataService.findAll();
+        List<OrderModel> models = new ArrayList<>();
+
+        for (OrderEntity entity : entities) {
+            models.add(new OrderModel(
+                    entity.getId(),
+                    entity.getOrderNo(),
+                    entity.getProductName(),
+                    entity.getPrice(),
+                    entity.getQuantity()
+            ));
+        }
+
+        return models;
     }
 
     /**
@@ -35,8 +51,17 @@ public class OrdersBusinessService implements OrdersBusinessServiceInterface {
      */
     @Override
     public OrderModel getOrderById(String id) {
-        // Call findById from the dataService
-        return dataService.findById(id);
+        OrderEntity entity = dataService.findById(id);
+        if (entity != null) {
+            return new OrderModel(
+                    entity.getId(),
+                    entity.getOrderNo(),
+                    entity.getProductName(),
+                    entity.getPrice(),
+                    entity.getQuantity()
+            );
+        }
+        return null;
     }
 
     @Override
@@ -44,14 +69,15 @@ public class OrdersBusinessService implements OrdersBusinessServiceInterface {
         System.out.println("OrdersBusinessService: init() called");
 
         // Initialize with some sample data if the database is empty
-        List<OrderModel> existingOrders = dataService.findAll();
+        List<OrderEntity> existingOrders = dataService.findAll();
         if (existingOrders.isEmpty()) {
             System.out.println("Database is empty, creating sample orders...");
 
-            dataService.create(new OrderModel(null, "1001", "PlayStation 5", 499.99f, 1));
-            dataService.create(new OrderModel(null, "1002", "27in Monitor", 399.99f, 2));
-            dataService.create(new OrderModel(null, "1003", "DualSense Controller", 69.99f, 1));
-            dataService.create(new OrderModel(null, "1004", "Microphone", 39.99f, 1));
+            // Create OrderEntity objects instead of OrderModel
+            dataService.create(new OrderEntity(null, "1001", "PlayStation 5", 499.99f, 1));
+            dataService.create(new OrderEntity(null, "1002", "27in Monitor", 399.99f, 2));
+            dataService.create(new OrderEntity(null, "1003", "DualSense Controller", 69.99f, 1));
+            dataService.create(new OrderEntity(null, "1004", "Microphone", 39.99f, 1));
 
             System.out.println("Sample orders created successfully!");
         }
