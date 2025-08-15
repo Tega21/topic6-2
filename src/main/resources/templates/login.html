@@ -1,21 +1,87 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Login</title></head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultTemplate}">
+
+<head>
+    <title>Login</title>
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #522398;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .submit-btn {
+            background-color: #522398;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background-color: #3d1a73;
+        }
+    </style>
+</head>
+
 <body>
-<h1>Login</h1>
+<div layout:fragment="content">
+    <div class="login-container">
+        <h2 style="text-align: center; color: #522398;">Login</h2>
 
-<div th:if="${param.error}" style="color:red">Invalid User Name or Password</div>
+        <!-- Error message -->
+        <div th:if="${param.error}" class="error-message">
+            Invalid User Name or Password
+        </div>
 
-<form th:action="@{/login}" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <!-- Login form -->
+        <form th:action="@{/login}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-    <label>Username</label>
-    <input type="text" name="username" required/>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required />
+            </div>
 
-    <label>Password</label>
-    <input type="password" name="password" required/>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
 
-    <button type="submit">Sign In</button>
-</form>
+            <button type="submit" class="submit-btn">Sign In</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
