@@ -6,21 +6,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
 public class UserEntity {
-
     @Id
     private String id;
 
     @Indexed(unique = true)
     private String username;
 
-    private String password; // store the BCrypt hash
+    // Store the BCrypt hash here (e.g., $2a$10$...)
+    private String password;
 
-    public UserEntity() { }
-
+    public UserEntity() {}
     public UserEntity(String id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
+        this.id = id; this.username = username; this.password = password;
     }
 
     public String getId() { return id; }

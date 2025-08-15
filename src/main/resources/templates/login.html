@@ -1,54 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/defaultTemplate}">
-
-<head>
-    <title>Login Page</title>
-</head>
-
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Login</title></head>
 <body>
-<div layout:fragment="content">
+<h1>Login</h1>
 
-    <!-- Centered Header -->
-    <div style="text-align: center;">
-        <h2>Login Form</h2>
-        <img src="/images/gcu-logo.png" alt="GCU Logo" style="width: 200px; margin: 20px auto; display: block;">
-    </div>
+<div th:if="${param.error}" style="color:red">Invalid User Name or Password</div>
 
-    <!-- Error message for invalid credentials -->
-    <div th:if="${param.error}" style="color: red; text-align: center; margin: 20px 0;">
-        <strong>Invalid User Name or Password</strong>
-    </div>
+<form th:action="@{/login}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-    <!-- Centered Form -->
-    <div style="display: flex; justify-content: center; margin-top: 30px;">
-        <form th:action="@{/login}" method="post">
-            <table>
-                <tr>
-                    <td><label for="username">User Name:</label></td>
-                    <td><input type="text" name="username" id="username" required /></td>
-                </tr>
-                <tr>
-                    <td><label for="password">Password:</label></td>
-                    <td><input type="password" name="password" id="password" required /></td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center; padding-top: 20px;">
-                        <button type="submit" style="
-                            background-color: #522398;
-                            color: white;
-                            padding: 10px 20px;
-                            border: none;
-                            border-radius: 5px;
-                            cursor: pointer;
-                        ">Login</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
+    <label>Username</label>
+    <input type="text" name="username" required/>
 
-</div>
+    <label>Password</label>
+    <input type="password" name="password" required/>
+
+    <button type="submit">Sign In</button>
+</form>
 </body>
 </html>

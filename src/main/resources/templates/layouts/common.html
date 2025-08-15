@@ -24,8 +24,9 @@
                 <span class="navbar-text me-3">
                     Welcome, <span sec:authentication="name">User</span>!
                 </span>
-                <form th:action="@{/logout}" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-outline-danger btn-sm">Log Out</button>
+                <form th:action="@{/logout}" method="post" style="display:inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit" class="btn btn-link p-0">Log Out</button>
                 </form>
             </div>
         </div>

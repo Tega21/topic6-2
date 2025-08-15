@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Qualifier("orderDataService")
+@Service("orderDataService")
 public class OrderDataService implements DataAccessInterface<OrderModel> {
 
     @Autowired
